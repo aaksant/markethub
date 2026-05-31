@@ -1,11 +1,10 @@
 import { Elysia } from "elysia";
-import type { User } from "@repo/shared";
+import { auth } from "./modules/auth/auth";
 
 export const app = new Elysia()
-  .get("/users", (): User[] => [
-    { id: "1", name: "Foo" },
-    { id: "2", name: "Bar" }
-  ])
+  .all("/api/auth/*", async ({ request }) => {
+    return auth.handler(request);
+  })
   .listen(3001);
 
 export type App = typeof app;

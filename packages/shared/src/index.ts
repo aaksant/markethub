@@ -1,4 +1,2 @@
-export type User = {
-  id: string
-  name: string
-}
+export * from "./db/client";
+export * as schema from "./db/schema";

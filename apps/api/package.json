@@ -6,7 +6,9 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.13",
     "@repo/shared": "workspace:*",
+    "better-auth": "^1.6.13",
     "elysia": "latest"
   },
   "devDependencies": {
