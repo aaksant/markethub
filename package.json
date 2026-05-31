@@ -17,7 +17,8 @@
   "scripts": {
     "dev:web": "cd apps/web && bun run dev",
     "dev:api": "cd apps/api && bun run dev",
-    "dev": "bun run --hot scripts/dev.ts"
+    "db:generate": "bun --cwd packages/shared/src/db drizzle-kit generate",
+    "db:migrate": "bun --cwd packages/shared/src/db drizzle-kit migrate"
   },
   "dependencies": {
     "@elysiajs/eden": "^1.4.9"
