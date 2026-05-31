@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "dev:web": "cd apps/web && bun run dev",
-    "dev:api": "cd apps/api && bun run dev",
+    "dev:api": "bun run --cwd apps/api --env-file=../../.env dev",
     "db:generate": "bun --cwd packages/shared/src/db drizzle-kit generate",
     "db:migrate": "bun --cwd packages/shared/src/db drizzle-kit migrate"
   },
