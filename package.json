@@ -1,0 +1,25 @@
+{
+  "name": "markethub",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prettier": "^3.8.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "cd apps/web && bun run dev",
+    "dev:api": "cd apps/api && bun run dev",
+    "dev": "bun run --hot scripts/dev.ts"
+  },
+  "dependencies": {
+    "@elysiajs/eden": "^1.4.9"
+  }
+}
