@@ -21,7 +21,7 @@ import {
   type PaginationParams
 } from "../../core/pagination";
 
-export type Filters = {
+export type ProductFilters = {
   sellerId?: string;
   search?: string;
   minPrice?: number;
@@ -35,7 +35,7 @@ export type SortParams = {
 
 export type ProductParams = {
   pagination: PaginationParams;
-  filters?: Filters;
+  filters?: ProductFilters;
   sort?: SortParams;
 };
 
@@ -106,7 +106,7 @@ export class ProductRepository
     return paginate(rows, total, page, limit);
   }
 
-  private createWhereClause(filters: Filters) {
+  private createWhereClause(filters: ProductFilters) {
     const conditions = [];
 
     if (filters.sellerId) {
