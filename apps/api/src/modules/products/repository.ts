@@ -28,7 +28,7 @@ export type ProductFilters = {
   maxPrice?: number;
 };
 
-export type SortParams = {
+export type ProductSortParams = {
   field?: "createdAt" | "updatedAt" | "price" | "name";
   order?: "asc" | "desc";
 };
@@ -36,7 +36,7 @@ export type SortParams = {
 export type ProductParams = {
   pagination: PaginationParams;
   filters?: ProductFilters;
-  sort?: SortParams;
+  sort?: ProductSortParams;
 };
 
 export class ProductRepository
@@ -132,7 +132,7 @@ export class ProductRepository
     return conditions;
   }
 
-  private createOrderByClause(sort?: SortParams) {
+  private createOrderByClause(sort?: ProductSortParams) {
     const field = sort?.field ?? "createdAt";
     const order = sort?.order ?? "desc";
 
