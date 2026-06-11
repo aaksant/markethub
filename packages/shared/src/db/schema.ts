@@ -315,3 +315,14 @@ export const readReceiptsRelations = relations(readReceipts, ({ one }) => ({
     references: [messages.id]
   })
 }));
+
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+export type UserRole = (typeof roleEnum.enumValues)[number];
+
+export type Product = typeof products.$inferSelect;
+export type NewProduct = typeof products.$inferInsert;
+export type UpdateProduct = Partial<Omit<NewProduct, "id" | "sellerId">>;
+
+export type ProductImage = typeof productImages.$inferSelect;
+export type NewProductImage = typeof productImages.$inferInsert;

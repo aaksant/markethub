@@ -8,12 +8,14 @@
   },
   "module": "./src/index.ts",
   "dependencies": {
+    "@supabase/supabase-js": "^2.107.0",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "postgres": "^3.4.9"
   },
   "devDependencies": {
     "drizzle-kit": "^0.31.10",
+    "supabase": "^2.104.0",
     "tsx": "^4.22.3"
   }
 }

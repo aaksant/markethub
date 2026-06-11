@@ -1,0 +1,115 @@
+import { supabase } from "@repo/shared";
+
+type PublicBucket = "avatars" | "product-media";
+type PrivateBucket = "chat-files";
+export type StorageBucket = PublicBucket | PrivateBucket;
+
+export type UploadOptions = {
+  bucket: StorageBucket;
+  path: string;
+  file: File;
+};
+
+export type UploadManyOptions = {
+  bucket: StorageBucket;
+  files: { file: File; path: string }[];
+};
+
+export type UploadResult = {
+  path: string;
+  fullPath: string;
+  publicUrl: string;
+};
+
+export type SignedUrlOptions = {
+  bucket: StorageBucket;
+  path: string;
+  expiresIn?: number; // seconds, default 3600
+};
+
+const PUBLIC_BUCKETS = new Set<StorageBucket>(["avatars", "product-media"]);
+
+export class FileRepository {
+  private storage(bucket: StorageBucket) {
+    return supabase.storage.from(bucket);
+  }
+
+  async upload({ bucket, path, file }: UploadOptions): Promise<UploadResult> {
+    console.log({
+      constructor: file.constructor.name,
+      isBlob: file instanceof Blob,
+      isFile: typeof File !== "undefined" ? file instanceof File : false
+    });
+
+    const { data, error } = await this.storage(bucket).upload(path, file);
+
+    if (error) {
+      console.dir(error, { depth: null });
+      throw new Error(`Storage upload failed: ${error.message}`);
+    }
+
+    const publicUrl = PUBLIC_BUCKETS.has(bucket)
+      ? this.getPublicUrl(bucket, path)
+      : data.fullPath;
+
+    return {
+      path: data.path,
+      fullPath: data.fullPath,
+      publicUrl
+    };
+  }
+
+  async uploadMany(opts: UploadManyOptions): Promise<UploadResult[]> {
+    return await Promise.all(
+      opts.files.map(({ file, path }) =>
+        this.upload({
+          bucket: opts.bucket,
+          file,
+          path
+        })
+      )
+    );
+  }
+
+  async delete(bucket: StorageBucket, paths: string | string[]): Promise<void> {
+    const target = Array.isArray(paths) ? paths : [paths];
+    const { error } = await this.storage(bucket).remove(target);
+
+    if (error) {
+      throw new Error(`Storage delete failed: ${error.message}`);
+    }
+  }
+
+  async getAccessUrl(
+    bucket: StorageBucket,
+    path: string,
+    expiresIn = 3600
+  ): Promise<string> {
+    if (PUBLIC_BUCKETS.has(bucket)) {
+      return this.getPublicUrl(bucket, path);
+    }
+    return this.getSignedUrl({ bucket, path, expiresIn });
+  }
+
+  private async getSignedUrl({
+    bucket,
+    path,
+    expiresIn = 3600
+  }: SignedUrlOptions): Promise<string> {
+    const { data, error } = await this.storage(bucket).createSignedUrl(
+      path,
+      expiresIn
+    );
+
+    if (error) {
+      throw new Error(`Signed URL failed: ${error.message}`);
+    }
+
+    return data.signedUrl;
+  }
+
+  private getPublicUrl(bucket: StorageBucket, path: string): string {
+    const { data } = this.storage(bucket).getPublicUrl(path);
+    return data.publicUrl;
+  }
+}

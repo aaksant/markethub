@@ -2,8 +2,9 @@
   "compilerOptions": {
     // Monorepo setup
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": {
-      "@repo/shared": ["packages/shared/src"],
+      "@repo/shared": ["packages/shared/src"]
     },
 
     // Environment setup & latest features
@@ -31,6 +32,6 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false,
-  },
+    "noPropertyAccessFromIndexSignature": false
+  }
 }
