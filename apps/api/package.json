@@ -7,8 +7,10 @@
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.13",
+    "@elysia/cors": "^1.4.2",
     "@repo/shared": "workspace:*",
     "better-auth": "^1.6.13",
+    "drizzle-orm": "^0.45.2",
     "elysia": "latest"
   },
   "devDependencies": {
