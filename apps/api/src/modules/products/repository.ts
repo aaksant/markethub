@@ -141,13 +141,10 @@ export class ProductRepository
     switch (field) {
       case "name":
         return sortFunction(schema.products.name);
-
       case "price":
         return sortFunction(schema.products.price);
-
       case "updatedAt":
         return sortFunction(schema.products.updatedAt);
-
       case "createdAt":
       default:
         return sortFunction(schema.products.createdAt);
