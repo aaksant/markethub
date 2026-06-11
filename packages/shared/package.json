@@ -6,6 +6,10 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "module": "./src/index.ts",
   "dependencies": {
     "@supabase/supabase-js": "^2.107.0",
@@ -14,8 +18,11 @@
     "postgres": "^3.4.9"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "drizzle-kit": "^0.31.10",
+    "eslint": "^10.4.1",
     "supabase": "^2.104.0",
-    "tsx": "^4.22.3"
+    "tsx": "^4.22.3",
+    "typescript-eslint": "^8.61.0"
   }
 }

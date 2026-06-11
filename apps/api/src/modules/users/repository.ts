@@ -1,11 +1,4 @@
-import {
-  db,
-  roleEnum,
-  schema,
-  users,
-  type User,
-  type UserRole
-} from "@repo/shared";
+import { db, schema, users, type User, type UserRole } from "@repo/shared";
 import { and, asc, count, desc, eq, ilike, or } from "drizzle-orm";
 import type { IReadableRepository } from "../../core/contracts";
 import {
