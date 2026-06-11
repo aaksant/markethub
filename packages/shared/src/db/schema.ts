@@ -318,6 +318,7 @@ export const readReceiptsRelations = relations(readReceipts, ({ one }) => ({
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
+export type UserRole = (typeof roleEnum.enumValues)[number];
 
 export type Product = typeof products.$inferSelect;
 export type NewProduct = typeof products.$inferInsert;
