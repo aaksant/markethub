@@ -36,7 +36,7 @@ export const productController = {
     const { page, limit, sellerId, search, minPrice, maxPrice, field, order } =
       query;
 
-    return productService.list({
+    return await productService.list({
       pagination: {
         page: page ?? 1,
         limit: limit ?? 20
